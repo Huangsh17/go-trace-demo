@@ -20,6 +20,6 @@ svc_1 -> svc_2 -> svc_3 -> grpc_server
 
 下面是jaeger的控制台效果：  
 
-![avatar](https://github.com/Huangsh17/go-trace-demo/blob/master/image/20210108105009.png)
+![avatar](https://github.com/Huangsh17/go-trace-demo/blob/master/image/20210108105836.png)
 
-![avatar](https://github.com/Huangsh17/go-trace-demo/blob/master/image/20210108105139.png)
+![avatar](https://github.com/Huangsh17/go-trace-demo/blob/master/image/20210108105852.png)
