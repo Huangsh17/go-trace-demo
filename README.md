@@ -1,14 +1,15 @@
 # go-trace-demo
 golang的分布式服务链路追踪案例，最近调研了网上的关于http和grpc结合的例子比较凌乱，而且相关的demo也比较少，所以就自己出一个案例教程
 
-主要服务 
+主要服务
 
-4个http服务和一个rpc服务：
+3个http服务和一个rpc服务：
 
 svc_1  
 svc_2  
 svc_3  
 grpc_server  
+
 
 服务间的调用顺序为：  
 
