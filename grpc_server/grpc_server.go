@@ -6,7 +6,6 @@ import (
 	"github.com/opentracing/opentracing-go"
 	"go-trace-demo/middleware"
 	pb "go-trace-demo/proto"
-	"go-trace-demo/tracing"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	"net"
@@ -25,8 +24,7 @@ func GrpcServer() {
 		fmt.Printf("failed to listen: %v", err)
 		return
 	}
-	tracer, closer, _ := tracing.InitTracer("tp")
-	defer closer.Close()
+	tracer := opentracing.GlobalTracer()
 	s := grpc.NewServer(serverOption(tracer)) // 创建gRPC服务器
 	pb.RegisterGreeterServer(s, &server{})    // 在gRPC服务端注册服务
 	reflection.Register(s)                    //在给定的gRPC服务器上注册服务器反射服务

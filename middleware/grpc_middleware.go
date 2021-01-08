@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/opentracing/opentracing-go"
+	"go-trace-demo/tracing"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
 )
@@ -24,12 +25,13 @@ func JaegerGrpcServerInterceptor(ctx context.Context, req interface{}, info *grp
 		md = md.Copy()
 	}
 	carrier := TextMapReader{md}
-	tracer := opentracing.GlobalTracer()
+	tracer, closer, _ := tracing.InitTracer("tp")
+	defer closer.Close()
 	spanContext, e := tracer.Extract(opentracing.TextMap, carrier)
 	if e != nil {
 		fmt.Println("Extract err:", e)
 	}
-	span := tracer.StartSpan("HEEP", opentracing.ChildOf(spanContext))
+	span := tracer.StartSpan(info.FullMethod, opentracing.ChildOf(spanContext))
 	defer span.Finish()
 	ctx = opentracing.ContextWithSpan(ctx, span)
 	return handler(ctx, req)

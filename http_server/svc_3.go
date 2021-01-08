@@ -15,7 +15,7 @@ func Router03() http.Handler {
 	e.GET("/r3", func(c *gin.Context) {
 		value, _ := c.Get("span")
 		span, _ := value.(opentracing.Span)
-		defer span.Finish()
+
 		valueTracer, _ := c.Get("tracer")
 		tracer, _ := valueTracer.(opentracing.Tracer)
 		grpc_client.GrpcClient(tracer, span)

@@ -36,8 +36,8 @@ func InitTracer(serverName string) (opentracing.Tracer, io.Closer, error) {
 	return tracer, closer, err
 }
 
-// 获取从上游服务拿到子span
-func GetSpan(tracer opentracing.Tracer, c *gin.Context) opentracing.Span {
+// 获取从上游服务拿到子span,针对http之间的调用
+func FromHttpGetSpan(tracer opentracing.Tracer, c *gin.Context) opentracing.Span {
 	spanCtx, _ := tracer.Extract(opentracing.HTTPHeaders, opentracing.HTTPHeadersCarrier(c.Request.Header))
 	span := tracer.StartSpan(c.Request.Host, ext.RPCServerOption(spanCtx))
 	return span
